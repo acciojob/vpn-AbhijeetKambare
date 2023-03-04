@@ -57,17 +57,17 @@ public class AdminServiceImpl implements AdminService {
         ServiceProvider serviceProvider=serviceProviderRepository1.findById(serviceProviderId).get();
         String CName=countryName.toUpperCase();
         CountryName name=countryMap.get(CName);
-        if(name==null){
-            throw new Exception("Country not found");
-        }else {
+        if(name!=null){
             Country country = new Country();
             country.setCountryName(name);
             country.setCode(name.toCode());
             country.setServiceProvider(serviceProvider);
             serviceProvider.getCountryList().add(country);
-            System.out.println(name+"this is country name");
-            System.out.println(name.toCode()+"thi sis code ");
+
             return serviceProviderRepository1.save(serviceProvider);
+
         }
+        else
+            throw new Exception("Country not found");
     }
 }
